@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.6.3"
+version: "0.6.4"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -20,6 +20,8 @@ ports:
 # Each oauth_clients entry: client_id, optional client_secret (leave out for a public client),
 # name, and redirect_uris (space-separated).
 # alexa_skill_id is the classic Alexa skill's id (amzn1.ask.skill.…); without it, POST /alexa answers 404.
+# alexa_lwa_client_id and alexa_lwa_client_secret are the skill's own Alexa Skill Messaging credentials
+# (developer console → Build → Permissions), not the account-linking secret. Both set turns on pushing to the widget.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -28,6 +30,8 @@ schema:
   ha_public_url: url?
   gate_key: password?
   alexa_skill_id: str?
+  alexa_lwa_client_id: str?
+  alexa_lwa_client_secret: password?
   oauth_clients:
     - client_id: str
       client_secret: password?
