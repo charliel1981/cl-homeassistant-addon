@@ -1,0 +1,33 @@
+name: cl-homeassistant
+version: "0.5.2"
+image: ghcr.io/charliel1981/cl-homeassistant-{arch}
+slug: cl_homeassistant
+description: Charlie's web interface and MCP server for this Home Assistant
+url: https://github.com/charliel1981/cl-homeassistant
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: application
+boot: auto
+homeassistant_api: true
+# Reachable inside HA as local-cl-homeassistant:8099; nothing is opened on the host.
+ports:
+  8099/tcp: null
+# Settings → Add-ons → cl-homeassistant → Configuration.
+# gate_key is the house-page key; it is asked for when linking Alexa or Claude. Without it, linking is off.
+# Each oauth_clients entry: client_id, optional client_secret (leave out for a public client),
+# name, and redirect_uris (space-separated).
+options:
+  public_url: https://home.plot.org.uk
+  ha_public_url: https://house.plot.org.uk
+  oauth_clients: []
+schema:
+  public_url: url
+  ha_public_url: url
+  gate_key: password?
+  oauth_clients:
+    - client_id: str
+      client_secret: password?
+      name: str?
+      redirect_uris: str
