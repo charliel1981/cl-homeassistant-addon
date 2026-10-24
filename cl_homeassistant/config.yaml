@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.6.1"
+version: "0.6.2"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -15,17 +15,17 @@ homeassistant_api: true
 ports:
   8099/tcp: null
 # Settings → Add-ons → cl-homeassistant → Configuration.
-# gate_key is the house-page key; it is asked for when linking Alexa or Claude. Without it, linking is off.
+# gate_key is the house key: it signs in to the page and links Alexa or Claude. Without it, both are off.
+# ha_public_url is no longer used (the page no longer signs in through Home Assistant); it stays optional.
 # Each oauth_clients entry: client_id, optional client_secret (leave out for a public client),
 # name, and redirect_uris (space-separated).
 # alexa_skill_id is the classic Alexa skill's id (amzn1.ask.skill.…); without it, POST /alexa answers 404.
 options:
   public_url: https://home.plot.org.uk
-  ha_public_url: https://house.plot.org.uk
   oauth_clients: []
 schema:
   public_url: url
-  ha_public_url: url
+  ha_public_url: url?
   gate_key: password?
   alexa_skill_id: str?
   oauth_clients:
