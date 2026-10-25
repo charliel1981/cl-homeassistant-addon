@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.6.7"
+version: "0.6.8"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -22,6 +22,8 @@ ports:
 # alexa_skill_id is the classic Alexa skill's id (amzn1.ask.skill.…); without it, POST /alexa answers 404.
 # alexa_lwa_client_id and alexa_lwa_client_secret are the skill's own Alexa Skill Messaging credentials
 # (developer console → Build → Permissions), not the account-linking secret. Both set turns on pushing to the widget.
+# widget_light_rooms pins the Lights widget's four room tiles: comma-separated area ids, e.g.
+# "kitchen, lounge, bedroom, hall". Without it, the tiles are the four areas with the most lights.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -32,6 +34,7 @@ schema:
   alexa_skill_id: str?
   alexa_lwa_client_id: str?
   alexa_lwa_client_secret: password?
+  widget_light_rooms: str?
   oauth_clients:
     - client_id: str
       client_secret: password?
