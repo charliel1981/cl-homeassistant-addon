@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.0"
+version: "0.9.1"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -24,6 +24,7 @@ ports:
 # (developer console → Build → Permissions), not the account-linking secret. Both set turns on pushing to the widget.
 # widget_light_rooms pins the Lights widget's four room tiles: comma-separated area ids, e.g.
 # "kitchen, lounge, bedroom, hall". Without it, the tiles are the four areas with the most lights.
+# kai_key_sha256 is the SHA-256 (hex) of the Mac's Kai key, which only posts Kai's AI tasks (mac/README.md).
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -35,6 +36,7 @@ schema:
   alexa_lwa_client_id: str?
   alexa_lwa_client_secret: password?
   widget_light_rooms: str?
+  kai_key_sha256: str?
   oauth_clients:
     - client_id: str
       client_secret: password?
