@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.5"
+version: "0.9.6"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
