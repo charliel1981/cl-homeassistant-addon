@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.43"
+version: "0.9.44"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -10,6 +10,9 @@ arch:
 init: false
 startup: application
 boot: auto
+# Seconds the Supervisor waits after asking the add-on to stop (10 by default): it first tells a screen
+# that is up to wait out the restart, on that screen's next ten-second tick.
+timeout: 20
 homeassistant_api: true
 # Reachable inside HA as local-cl-homeassistant:8099; nothing is opened on the host.
 ports:
