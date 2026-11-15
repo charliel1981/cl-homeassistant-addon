@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.154"
+version: "0.9.155"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -35,6 +35,9 @@ panel_icon: mdi:home-city-outline
 # kai_key_sha256 is the SHA-256 (hex) of the Mac's Kai key, which only posts Kai's AI tasks (mac/README.md).
 # ambient_minutes is how long My House is left untouched before it rests on its face (a big clock, the
 # weather and a line on the house; a tap brings the controls back). 5 when unset; 0 turns the face off.
+# echo_reopen_entity is the Echo Show's media player from Alexa Media Player, e.g. media_player.echo_show_11:
+# when My House has gone from it by accident, the add-on opens it again there (alexa/README.md). Unset, it never does.
+# echo_reopen_after_s is how long My House may be gone first: 60 when unset, 30 to 3600.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -48,6 +51,8 @@ schema:
   widget_light_rooms: str?
   kai_key_sha256: str?
   ambient_minutes: int(0,1440)?
+  echo_reopen_entity: match(^media_player\.[a-z0-9_]+$)?
+  echo_reopen_after_s: int(30,3600)?
   oauth_clients:
     - client_id: str
       client_secret: password?
