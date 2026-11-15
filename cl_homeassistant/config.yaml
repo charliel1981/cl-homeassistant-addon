@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.87"
+version: "0.9.88"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -17,6 +17,11 @@ homeassistant_api: true
 # Reachable inside HA as local-cl-homeassistant:8099; nothing is opened on the host.
 ports:
   8099/tcp: null
+# Home Assistant's own way in (0.9.88): HA's signed-in admins reach the page through HA on 8100, which only the
+# Supervisor can call, so a dashboard can show the 3D house in a tab with no house key.
+ingress: true
+ingress_port: 8100
+panel_icon: mdi:home-city-outline
 # Settings → Add-ons → cl-homeassistant → Configuration.
 # gate_key is the house key: it signs in to the page and links Alexa or Claude. Without it, both are off.
 # ha_public_url is no longer used (the page no longer signs in through Home Assistant); it stays optional.
