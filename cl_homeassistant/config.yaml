@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.160"
+version: "0.9.161"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -38,6 +38,11 @@ panel_icon: mdi:home-city-outline
 # echo_reopen_entity is the Echo Show's media player from Alexa Media Player, e.g. media_player.echo_show_11:
 # when My House has gone from it by accident, the add-on opens it again there (alexa/README.md). Unset, it never does.
 # echo_reopen_after_s is how long My House may be gone first: 60 when unset, 30 to 3600.
+# door_watch_entity is the sensor that says someone is at the front door, a binary_sensor (on) or an event entity
+# (fires), e.g. binary_sensor.front_door_person: My House on the Show then brings the door camera up in its camera
+# modal by itself (alexa/README.md). Unset, it never does.
+# door_watch_camera is the camera it shows: camera.front_door when unset.
+# door_watch_close_s is how long the camera stays up before it closes itself: 60 when unset, 10 to 600.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -53,6 +58,9 @@ schema:
   ambient_minutes: int(0,1440)?
   echo_reopen_entity: match(^media_player\.[a-z0-9_]+$)?
   echo_reopen_after_s: int(30,3600)?
+  door_watch_entity: match(^(binary_sensor|event)\.[a-z0-9_]+$)?
+  door_watch_camera: match(^camera\.[a-z0-9_]+$)?
+  door_watch_close_s: int(10,600)?
   oauth_clients:
     - client_id: str
       client_secret: password?
