@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.166"
+version: "0.9.167"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -44,6 +44,11 @@ panel_icon: mdi:home-city-outline
 # door_watch_camera is the camera it shows: camera.front_door when unset. Several, separated by commas (at most 3), are
 # shown together: the first live, the rest as stills renewed while it is up, e.g. camera.front_door, camera.doorbell_snapshot.
 # door_watch_close_s is how long the camera stays up before it closes itself: 60 when unset, 10 to 600.
+# road_vehicle_entity is the sensor HA's road_vehicle_passed automation sets as a vehicle drives past a street camera,
+# e.g. sensor.last_vehicle_past: My House on the Show then plays its van or car scene that way, and never at random
+# (alexa/README.md). Unset, both play at random as before.
+# road_vehicle_flip names the Frigate cameras whose left_to_right is the 3D road's right to left, separated by commas,
+# e.g. fairviews. Unset, every camera is taken as it is.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -62,6 +67,8 @@ schema:
   door_watch_entity: match(^(binary_sensor|event)\.[a-z0-9_]+$)?
   door_watch_camera: match(^camera\.[a-z0-9_]+(\s*,\s*camera\.[a-z0-9_]+){0,2}$)?
   door_watch_close_s: int(10,600)?
+  road_vehicle_entity: match(^sensor\.[a-z0-9_]+$)?
+  road_vehicle_flip: match(^[a-z0-9_]+(\s*,\s*[a-z0-9_]+){0,9}$)?
   oauth_clients:
     - client_id: str
       client_secret: password?
