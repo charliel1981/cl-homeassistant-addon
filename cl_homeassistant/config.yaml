@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.189"
+version: "0.9.190"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -48,10 +48,11 @@ panel_icon: mdi:home-city-outline
 # door_watch_camera is the camera it shows: camera.front_door when unset. Several, separated by commas (at most 3), are
 # shown together: the first live, the rest as stills renewed while it is up, e.g. camera.front_door, camera.doorbell_snapshot.
 # door_watch_close_s is how long the camera stays up before it closes itself: 60 when unset, 10 to 600.
-# pip_camera is the Ring doorbell the lounge TV's compact window shows at /3d.html?pip=1, e.g.
-# camera.front_door_8cw_live_view: its live WebRTC video, falling back to the wired door camera the add-on names, then a
-# placeholder; the live stream is released after a minute (battery). Anything not shaped camera.<slug> is refused. Unset,
-# the PiP wakes nothing and shows only its placeholder.
+# frigate_url is Frigate's base URL on the LAN, e.g. http://frigate-host:5000. The lounge TV's compact window at
+# /3d.html?pip=1 proxies Frigate's always-on snapshot through the add-on (so the https page can show the http camera),
+# refreshed about every 1.5 s. Unset turns the PiP off (it shows only its placeholder). Not a valid http(s) URL is refused.
+# frigate_pip_camera is the Frigate camera name the PiP shows, e.g. front_door; only that one camera is proxied.
+# Defaults to front_door. Anything but plain word characters is ignored.
 # road_vehicle_entity is the sensor HA's road_vehicle_passed automation sets as a vehicle drives past a street camera,
 # e.g. sensor.last_vehicle_past: My House on the Show then plays its van or car scene that way, and never at random
 # (alexa/README.md). Unset, both play at random as before.
@@ -82,7 +83,8 @@ schema:
   door_watch_entity: match(^(binary_sensor|event)\.[a-z0-9_]+$)?
   door_watch_camera: match(^camera\.[a-z0-9_]+(\s*,\s*camera\.[a-z0-9_]+){0,2}$)?
   door_watch_close_s: int(10,600)?
-  pip_camera: match(^camera\.[a-z0-9_]+$)?
+  frigate_url: url?
+  frigate_pip_camera: match(^[a-z0-9_]+$)?
   road_vehicle_entity: match(^sensor\.[a-z0-9_]+$)?
   road_vehicle_flip: match(^[a-z0-9_]+(\s*,\s*[a-z0-9_]+){0,9}$)?
   login_notify: match(^notify\.[a-z0-9_]+$)?
