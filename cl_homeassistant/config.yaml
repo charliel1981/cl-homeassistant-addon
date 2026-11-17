@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.187"
+version: "0.9.188"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -24,6 +24,10 @@ ingress_port: 8100
 panel_icon: mdi:home-city-outline
 # Settings → Add-ons → cl-homeassistant → Configuration.
 # gate_key is the house key: it signs in to the page and links Alexa or Claude. Without it, both are off.
+# tv_token is a long-lived sign-in for a fixed house screen (e.g. the lounge Android TV): the screen opens
+# /auth/echo?device=<tv_token>&next=/3d.html once and keeps a 30-day view-only session, like the Echo's (it can
+# see and control, but never unlock the front door). Unset means device sign-in is off. Best its own long random
+# token, not the gate key or the secret-link key.
 # ha_public_url is no longer used (the page no longer signs in through Home Assistant); it stays optional.
 # Each oauth_clients entry: client_id, optional client_secret (leave out for a public client),
 # name, and redirect_uris (space-separated).
@@ -62,6 +66,7 @@ schema:
   public_url: url
   ha_public_url: url?
   gate_key: password?
+  tv_token: password?
   alexa_skill_id: str?
   alexa_lwa_client_id: str?
   alexa_lwa_client_secret: password?
