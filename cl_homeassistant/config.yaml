@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.171"
+version: "0.9.176"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -49,6 +49,8 @@ panel_icon: mdi:home-city-outline
 # (alexa/README.md). Unset, both play at random as before.
 # road_vehicle_flip names the Frigate cameras whose left_to_right is the 3D road's right to left, separated by commas,
 # e.g. fairviews. Unset, every camera is taken as it is.
+# login_notify is the notify service of Charlie's phone in the companion app, e.g. notify.mobile_app_charlies_iphone:
+# the sign-in page then offers to push a 6-digit code there, which signs that browser in without unlocking. Unset, it is off.
 # ring_client_id, ring_client_secret and ring_hmac_key are Charlie's private Ring AppStore app's credentials and HMAC
 # signing key (Ring developer portal). All three set turns on /ring/token, /ring/link and /ring/webhook, the
 # ring_partner_event event in HA and the ring_devices and ring_events MCP tools (README "Ring"). Unset, Ring is off.
@@ -72,6 +74,7 @@ schema:
   door_watch_close_s: int(10,600)?
   road_vehicle_entity: match(^sensor\.[a-z0-9_]+$)?
   road_vehicle_flip: match(^[a-z0-9_]+(\s*,\s*[a-z0-9_]+){0,9}$)?
+  login_notify: match(^notify\.[a-z0-9_]+$)?
   ring_client_id: str?
   ring_client_secret: password?
   ring_hmac_key: password?
