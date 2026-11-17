@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.188"
+version: "0.9.189"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -48,6 +48,10 @@ panel_icon: mdi:home-city-outline
 # door_watch_camera is the camera it shows: camera.front_door when unset. Several, separated by commas (at most 3), are
 # shown together: the first live, the rest as stills renewed while it is up, e.g. camera.front_door, camera.doorbell_snapshot.
 # door_watch_close_s is how long the camera stays up before it closes itself: 60 when unset, 10 to 600.
+# pip_camera is the Ring doorbell the lounge TV's compact window shows at /3d.html?pip=1, e.g.
+# camera.front_door_8cw_live_view: its live WebRTC video, falling back to the wired door camera the add-on names, then a
+# placeholder; the live stream is released after a minute (battery). Anything not shaped camera.<slug> is refused. Unset,
+# the PiP wakes nothing and shows only its placeholder.
 # road_vehicle_entity is the sensor HA's road_vehicle_passed automation sets as a vehicle drives past a street camera,
 # e.g. sensor.last_vehicle_past: My House on the Show then plays its van or car scene that way, and never at random
 # (alexa/README.md). Unset, both play at random as before.
@@ -78,6 +82,7 @@ schema:
   door_watch_entity: match(^(binary_sensor|event)\.[a-z0-9_]+$)?
   door_watch_camera: match(^camera\.[a-z0-9_]+(\s*,\s*camera\.[a-z0-9_]+){0,2}$)?
   door_watch_close_s: int(10,600)?
+  pip_camera: match(^camera\.[a-z0-9_]+$)?
   road_vehicle_entity: match(^sensor\.[a-z0-9_]+$)?
   road_vehicle_flip: match(^[a-z0-9_]+(\s*,\s*[a-z0-9_]+){0,9}$)?
   login_notify: match(^notify\.[a-z0-9_]+$)?
