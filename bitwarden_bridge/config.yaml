@@ -1,0 +1,38 @@
+name: Bitwarden Bridge
+version: "0.1.0"
+image: ghcr.io/charliel1981/bitwarden-bridge-{arch}
+slug: bitwarden_bridge
+description: Charlie's Bitwarden vault behind a small token-guarded API for Home Assistant and Claude
+url: https://github.com/charliel1981/cl-homeassistant
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: application
+boot: auto
+# Reachable inside HA as local-bitwarden-bridge:8087 (or <repo>-bitwarden-bridge from a store); nothing is opened
+# on the host and there is no ingress. bw serve itself listens on 127.0.0.1:8088 inside the container only.
+ports:
+  8087/tcp: null
+# Settings → Add-ons → Bitwarden Bridge → Configuration.
+# server_url is the vault: https://vault.bitwarden.com (US cloud), https://vault.bitwarden.eu (EU) or a self-host.
+# client_id and client_secret are the personal API key (web vault → Account settings → Security → Keys → View API key).
+# master_password unlocks the vault after every restart; the add-on holds it for as long as it runs.
+# api_token is what Home Assistant and Claude send as "Authorization: Bearer <api_token>"; at least 32 characters.
+# sync_minutes is how often the bridge runs bw sync (5 to 1440).
+# folder_rules file unfiled items on POST /house/tidy: match is a host suffix (octopus.energy matches
+# my.octopus.energy) or name:<text> (case-insensitive part of the item name); the first rule that matches wins.
+options:
+  server_url: https://vault.bitwarden.com
+  sync_minutes: 15
+  folder_rules: []
+schema:
+  server_url: url
+  client_id: str
+  client_secret: password
+  master_password: password
+  api_token: password
+  sync_minutes: int(5,1440)
+  folder_rules:
+    - match: str
+      folder: str

@@ -1,5 +1,5 @@
 name: cl-homeassistant
-version: "0.9.194"
+version: "0.9.195"
 image: ghcr.io/charliel1981/cl-homeassistant-{arch}
 slug: cl_homeassistant
 description: Charlie's web interface and MCP server for this Home Assistant
@@ -64,6 +64,9 @@ panel_icon: mdi:home-city-outline
 # ring_client_id, ring_client_secret and ring_hmac_key are Charlie's private Ring AppStore app's credentials and HMAC
 # signing key (Ring developer portal). All three set turns on /ring/token, /ring/link and /ring/webhook, the
 # ring_partner_event event in HA and the ring_devices and ring_events MCP tools (README "Ring"). Unset, Ring is off.
+# bitwarden_url is the Bitwarden bridge add-on on HA's internal network, e.g. http://<bridge host>:8087, and
+# bitwarden_token its api_token. Both set turns on the bw_* MCP tools over Charlie's vault for Claude (README
+# "Bitwarden"); Alexa never gets them. Not a valid http(s) URL is refused. Unset, Bitwarden is off.
 options:
   public_url: https://home.plot.org.uk
   oauth_clients: []
@@ -91,6 +94,8 @@ schema:
   ring_client_id: str?
   ring_client_secret: password?
   ring_hmac_key: password?
+  bitwarden_url: url?
+  bitwarden_token: password?
   oauth_clients:
     - client_id: str
       client_secret: password?
